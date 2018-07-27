@@ -1,0 +1,60 @@
+
+<section class="page-section cta">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <div class="cta-inner text-center rounded">
+          <h2 class="section-heading mb-5">
+            <span class="section-heading-upper">Come On In</span>
+            <span class="section-heading-lower">We're Open</span>
+          </h2>
+            <div id="notif"></div>
+          <form id="contact-form">
+          <table class="table" style="position: relative;">
+            <tr>
+              <td><label for="nama">Nama :</label></td>
+              <td><input type="text" class="form-control" id="nama"></td>
+            </tr>
+            <tr>
+              <td><label for="email">Email :</label></td>
+              <td><input type="email" class="form-control" id="email"></td>
+            </tr>
+            <tr>
+              <td><label for="pesan">Pesan :</label></td>
+              <td><textarea class="form-control" rows="4" id="pesan"></textarea></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style="float: right;"><button type="button" class="btn btn-default pull-right">Submit</button></td>
+            </tr>
+          </table>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+    $('.btn-default').click(function() {
+        var konten = $('#konten');
+        var data = {
+            nama : $('#nama').val(),
+            email : $('#email').val(),
+            pesan : $('#pesan').val(),
+        }
+        $.ajax({
+            url: 'simpan.php',
+            dataType: "html",
+            data: data,
+            type:"POST",
+            success: function(res) {
+                var alert = $('#notif');
+                res = $.parseHTML(res);
+                alert.append(res);
+                if ($('.alert-dismissible').hasClass('alert-success')) {
+                    $('#contact-form').trigger("reset");
+                }
+            }
+        });
+    });
+</script>
